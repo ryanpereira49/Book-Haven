@@ -16,7 +16,9 @@ const PORT = process.env.port || 8000;
 
 // Database Connection and server startup
 mongoose
-  .connect(process.env.MONGO_URL,{dbName: process.env.MONGO_DB_NAME})
+  .connect(process.env.MONGO_URL, {
+    dbName: process.env.MONGO_DB_NAME,
+  })
   .then(() => console.log("[Database] : Connected"))
   .catch((err) => console.log("[Database]: Not Connected: ", err))
   .then(() => {
