@@ -5,7 +5,14 @@ export default {
     './src/components/**/*.jsx'
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors:{
+        'black': '#333A3F'
+      },
+      fontFamily:{
+        'sans': ['Inter']
+      }
+    }
   },
   plugins: [],
 }

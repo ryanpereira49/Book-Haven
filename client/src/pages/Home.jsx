@@ -1,11 +1,12 @@
 import React from 'react'
+import {toast} from 'react-hot-toast'
+import { useNavigate, Link } from 'react-router-dom'
+import BookElement from '../components/BookElement'
 
 export default function Home() {
   return (
     <div>
-      <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+      
     </div>
   )
 }
