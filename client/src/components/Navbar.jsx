@@ -6,7 +6,7 @@ export default function Navbar() {
   const navigate = useNavigate()
 
   return (
-   <div className="flex flex-row mx-4 p-4">
+   <div className="flex flex-row mx-4 px-4 pt-4">
     <div className="shrink-0 items-center justify-center sm:justify-start">
       <button onClick={() => {navigate('/')}}>
         <img className='w-60' src='/Logo.png' alt='Website Logo'/>
