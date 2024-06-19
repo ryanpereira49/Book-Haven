@@ -9,8 +9,10 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
+app.use('/public',express.static('public'))
 
 app.use("/", require("./routes/authRoutes"));
+app.use("/book", require("./routes/bookRoutes"));
 
 const PORT = process.env.port || 8000;
 
