@@ -3,5 +3,8 @@ node_modules
 
 hits.json
 output.json
-downloadthumb.js
+output_old.json
+downloadthumb.py
 testjson.js
+UploadToDatabase.js
+outputUpdater.js
