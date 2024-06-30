@@ -26,6 +26,15 @@ const bookSchema = new Schema({
     price: {
         type: String,
     },
+    category: {
+        type: String,
+    },
+    image_sm: {
+        type: String
+    },
+    image_lg:{
+        type: String
+    }
 })
 
 const BookModel = mongoose.model('Book',bookSchema)
