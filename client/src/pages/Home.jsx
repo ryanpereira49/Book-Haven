@@ -3,13 +3,14 @@ import { toast } from "react-hot-toast";
 import { useNavigate, Link } from "react-router-dom";
 import BookElement from "../components/BookElement";
 import axios from "axios"; // Make sure axios is imported
+import Pagination from "../components/Pagination";
 
 export default function Home() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1)
-  const [postPerPage, setPostPerPage] = useState(15)
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(15);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,16 +35,16 @@ export default function Home() {
     return <div>Error: {error.message}</div>; // Correctly render error state
   }
 
+  const lastPostIndex = currentPage * postPerPage;
+  const firstPostIndex = lastPostIndex - postPerPage;
+  const currentPosts = data.slice(firstPostIndex, lastPostIndex);
+
   return (
     <div>
       <div className='p-28 mx-4 mt-20'>
-        <span className='text-[70px] font-bold text-left'>
-          Where every book is a new adventure
-        </span>
+        <span className='text-[70px] font-bold text-left'>Where every book is a new adventure</span>
         <br />
-        <span className='text-[40px] font-semibold text-gray-600'>
-          Discover your next great read with us!
-        </span>
+        <span className='text-[40px] font-semibold text-gray-600'>Discover your next great read with us!</span>
         <br />
         <button className='bg-black rounded-md text-white px-4 py-3 text-[20px] font-semibold mt-8'>
           Start reading
@@ -51,15 +52,19 @@ export default function Home() {
       </div>
       <div className='px-24 py-3'>
         <div className='grid grid-cols-5 gap-7 content-around'>
-          {data.map((book) => (
+          {currentPosts.map((book) => (
             <BookElement
               key={book.isbn_13}
               image={book.image_sm}
               name={book.title}
               author={book.author}
               price={book.price}
+              isbn={book.isbn_13}
             />
           ))}
+        </div>
+        <div className="pt-8 flex justify-center">
+          <Pagination totalPosts={data.length} postPerPage={postPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage} />
         </div>
       </div>
     </div>
