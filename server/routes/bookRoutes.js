@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const cors = require('cors')
-const {books} = require('../controllers/bookControllers')
+const {books,details,recommendation} = require('../controllers/bookControllers')
 
 //Middleware
 router.use(
@@ -12,5 +12,7 @@ router.use(
 )
 
 router.get('/books', books)
+router.post('/details',details)
+router.post('/recommendation',recommendation)
 
 module.exports = router
