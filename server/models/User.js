@@ -1,6 +1,19 @@
 const mongoose = require('mongoose')
 const {Schema} = mongoose
 
+const cartItemSchema = new Schema({
+    product: {
+        type: String,
+        required: true,
+    },
+    quantity: {
+        type: Number,
+        required: true,
+        min: 1,
+    }
+});
+
+
 const userSchema = new Schema({
     title: {
         type: String,
@@ -16,6 +29,10 @@ const userSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    cart: {
+        type: [cartItemSchema],
+        default: []
     }
 })
 
