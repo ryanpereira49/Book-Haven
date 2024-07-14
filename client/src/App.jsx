@@ -6,6 +6,7 @@ import Login from "../src/pages/Login";
 import Register from "../src/pages/Register";
 import Navbar from "./components/Navbar";
 import Details from "./pages/Details";
+import Footer from "./components/Footer";
 
 axios.defaults.baseURL = "http://localhost:8000";
 axios.defaults.withCredentials = true;
@@ -21,6 +22,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/details" element={<Details/>}/>
       </Routes>
+      <Footer/>
     </>
   );
 }

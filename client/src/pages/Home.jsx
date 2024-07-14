@@ -63,7 +63,7 @@ export default function Home() {
             />
           ))}
         </div>
-        <div className="pt-8 flex justify-center">
+        <div className="pt-8 mb-8 flex justify-center">
           <Pagination totalPosts={data.length} postPerPage={postPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage} />
         </div>
       </div>

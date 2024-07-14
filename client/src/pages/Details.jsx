@@ -15,13 +15,10 @@ export default function Details() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("Fetching book details for ISBN:", state);
         const response = await axios.post("/book/details", { isbn: state });
-        console.log("Book details response:", response.data);
         setData(response.data);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching book details:", error);
         setError(error);
         setLoading(false);
       }
@@ -34,12 +31,9 @@ export default function Details() {
     const fetchRecommendations = async () => {
       if (data) {
         try {
-          console.log("Fetching recommendations for category:", data.category, "and ISBN:", data.isbn_13);
           const response = await axios.post("/book/recommendation", { category: data.category, isbn: data.isbn_13 });
-          console.log("Recommendations response:", response.data);
           setRecom(response.data);
         } catch (error) {
-          console.error("Error fetching recommendations:", error);
           setError(error);
         }
       }
@@ -109,7 +103,7 @@ export default function Details() {
       </div>
       <div className="mt-8">
         <p className="text-4xl text-gray-800 pt-3 font-semibold">Read More</p>
-        <div className="grid grid-cols-5 gap-7 content-around">
+        <div className="grid grid-cols-5 gap-7 content-around mt-8 mb-8">
           {recom && recom.map((book) => (
             <BookElement
               key={book.isbn_13}

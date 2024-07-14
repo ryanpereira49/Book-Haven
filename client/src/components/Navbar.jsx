@@ -19,7 +19,6 @@ export default function Navbar() {
       <button className="mx-4 py-1 px-3  text-lg border-2 border-black rounded hover:bg-black hover:text-white " onClick={() => {navigate('/login')}}>Login</button>
       <button className="mx-4 py-1 px-4  text-lg bg-black text-white rounded hover:shadow-md" onClick={() => {navigate('/register')}}>Sign Up</button>
     </div>
-
    </div>
   )
 }
