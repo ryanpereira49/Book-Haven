@@ -24,16 +24,16 @@ const login = async (req, res) => {
 
   try {
     if (!username) {
-      res.json({ message: "Username is required" });
+      res.json({ error: "Username is required" });
     }
     if (!password) {
-      res.json({ message: "Password is required" });
+      res.json({ error: "Password is required" });
     }
 
     const user = await User.findOne({ username });
     if (!user) {
       return res.json({
-        message: "No user found",
+        error: "No user found",
       });
     }
 
@@ -46,13 +46,13 @@ const login = async (req, res) => {
         {},
         (err, token) => {
           if (err) throw err;
-          res.cookie("token", token).json(user.username);
+          res.cookie("token", token).json({success: user});
         }
       );
     }
     if (!match) {
       res.json({
-        message: "Password do not match",
+        error: "Password do not match",
       });
     }
   } catch (error) {
@@ -68,9 +68,9 @@ const login = async (req, res) => {
 const register = async (req, res) => {
   const { username, email, password } = req.body;
 
-  v_username = await validateUsername(username);
-  v_email = await validateEmail(email);
-  v_password = await validatePassword(password);
+  const v_username = await validateUsername(username);
+  const v_email = await validateEmail(email);
+  const v_password = await validatePassword(password);
 
   if (
     v_username.status === true &&
@@ -81,28 +81,56 @@ const register = async (req, res) => {
 
     try {
       const user = await User.create({
-        username,
-        email,
+        username: username,
+        email: email,
         password: hashedPassword,
       });
 
-      return res.json(user.username);
+      if(user){
+        jwt.sign(
+          { email: user.email, id: user._id, username: user.username, role: user.role },
+          process.env.JWT_SECRET,
+          {},
+          (err, token) => {
+            if (err) throw err;
+            res.cookie("token", token).json({success: user});
+          }
+        );
+      }
     } catch (error) {
       console.log(error);
     }
   } else if (v_username.status === false) {
-    return res.json(v_username.message);
+    return res.json({error: v_username.message});
   } else if (v_email.status === false) {
-    return res.json(v_email.message);
+    return res.json({error: v_email.message});
   } else if (v_password.status === false) {
-    return res.json(v_password.message);
+    return res.json({error: v_password.message});
   } else {
-    return res.json("Internal Server Error");
+    return res.status(400).json("Internal Server Error");
   }
 };
+
+const logout = async(req,res) => {
+  res.status(202).clearCookie('token').send('cookie cleared')
+}
+
+const getProfile = (req,res) => {
+  const {token} = req.cookies
+  if(token){
+      jwt.verify(token,process.env.JWT_SECRET,{}, (err,user) => {
+          if(err) throw(err)
+          res.json(user)
+      })
+  }else{
+      res.json(null)
+  }
+}
 
 module.exports = {
   helloworld,
   login,
   register,
+  logout,
+  getProfile
 };
