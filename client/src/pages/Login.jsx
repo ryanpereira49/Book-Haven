@@ -2,19 +2,37 @@ import React, {useState} from "react";
 import {toast} from 'react-hot-toast'
 import { useNavigate, Link } from 'react-router-dom'
 import axios from "axios";
+import { useContext } from "react";
+import { UserContext } from "../context/userContext";
 
 
 export default function Login() {
 
   const navigate = useNavigate()
 
+  const { user, setUser } = useContext(UserContext);
+
+
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
 
   async function handleSubmit(e){
     e.preventDefault()
-    console.log(username,password)
-  
+    try {
+      const { data } = await axios.post('/login', {
+        username: username,
+        password: password
+      });
+      if (data.error) {
+        toast.error(data.error);
+      } else {
+        setUser(data.success)
+        toast.success('Login Successful');
+        navigate('/')
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (

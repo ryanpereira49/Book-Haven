@@ -2,19 +2,43 @@ import React, { useState } from 'react'
 import {toast} from 'react-hot-toast'
 import { useNavigate, Link } from 'react-router-dom'
 import axios from "axios";
+import { useContext } from "react";
+import { UserContext } from "../context/userContext";
 
 export default function Register() {
 
   const navigate = useNavigate()
+
+  const { user, setUser } = useContext(UserContext);
 
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword,setConfirmPassword] = useState("")
 
-  async function handleSubmit(e){
-    e.preventDefault()
-    console.log(username,email,password,confirmPassword)
+  async function handleSubmit(e) {
+    e.preventDefault();
+  
+    if (password === confirmPassword) {
+      try {
+        const { data } = await axios.post('/register', {
+          username: username,
+          email: email,
+          password: password,
+        });
+        if (data.error) {
+          toast.error(data.error);
+        } else {
+          setUser(data.success);
+          toast.success('Registration Successful');
+          navigate('/')
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      toast.error("Password doesn't match!");
+    }
   }
 
 
