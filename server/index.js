@@ -13,6 +13,7 @@ app.use('/static',express.static('public'))
 
 app.use("/", require("./routes/authRoutes"));
 app.use("/book", require("./routes/bookRoutes"));
+app.use("/cart", require("./routes/cartRoutes"));
 
 const PORT = process.env.port || 8000;
 
