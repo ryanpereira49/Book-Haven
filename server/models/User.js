@@ -10,15 +10,16 @@ const cartItemSchema = new Schema({
         type: Number,
         required: true,
         min: 1,
+        default: 1
     }
 });
 
 
 const userSchema = new Schema({
-    title: {
+    username: {
         type: String,
     },
-    author:{
+    email:{
         type: String,
     },
     password: String,
