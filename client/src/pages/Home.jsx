@@ -2,15 +2,20 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate, Link } from "react-router-dom";
 import BookElement from "../components/BookElement";
+import { UserContext } from "../context/userContext";
+import { useContext } from "react";
 import axios from "axios"; // Make sure axios is imported
 import Pagination from "../components/Pagination";
 
 export default function Home() {
   const [data, setData] = useState(null);
+  const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostPerPage] = useState(15);
+
+  const { user, loading: userLoading } = useContext(UserContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,6 +31,41 @@ export default function Home() {
 
     fetchData();
   }, []); // Add dependency array to ensure useEffect runs only once
+
+  useEffect(() => {
+    const fetchCart = async () => {
+      if(user){
+        try {
+          const response = await axios.post("/cart/fetch",{username: user.username});
+          setCart(response.data);
+          console.log(cart)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    };
+
+    fetchCart();
+  }, [user]); // Add dependency array to ensure useEffect runs only once
+
+  const isInCart = (isbn) => {
+    if(user){
+      return cart.some(item => item.product === isbn);
+    }
+    
+  };
+
+  const handleAddToCart = async () => {
+    if(user){
+      try {
+        const response = await axios.post("/cart/fetch",{username: user.username});
+        setCart(response.data);
+        console.log(cart)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  };
 
   if (loading) {
     return <div>Loading...</div>; // Correctly render loading state
@@ -60,6 +100,8 @@ export default function Home() {
               author={book.author}
               price={book.price}
               isbn={book.isbn_13}
+              inCart={user ? isInCart(book.isbn_13): false}
+              onAddToCart={handleAddToCart}
             />
           ))}
         </div>
