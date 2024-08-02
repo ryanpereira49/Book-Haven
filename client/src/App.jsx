@@ -9,6 +9,7 @@ import Details from "./pages/Details";
 import Footer from "./components/Footer";
 import { UserContextProvider } from "../src/context/userContext";
 import Cart from "./pages/Cart";
+import Contact from './pages/Contact';
 
 axios.defaults.baseURL = "http://localhost:8000";
 axios.defaults.withCredentials = true;
@@ -25,6 +26,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/details' element={<Details />} />
           <Route path='/cart' element={<Cart />}/>
+          <Route path='/contact' element={<Contact/>}/>
         </Routes>
         <Footer />
       </UserContextProvider>
