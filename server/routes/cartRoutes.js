@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const cors = require('cors')
-const {fetch, add, remove, increment, decrement} = require('../controllers/cartControllers')
+const {fetch, loadCart, add, remove, increment, decrement} = require('../controllers/cartControllers')
 
 //Middleware
 router.use(
@@ -12,6 +12,7 @@ router.use(
 )
 
 router.post('/fetch', fetch)
+router.post('/load',loadCart)
 router.post('/add',add)
 router.post('/remove',remove)
 router.post('/increment',increment)
