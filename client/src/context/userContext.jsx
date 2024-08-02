@@ -5,8 +5,9 @@ export const UserContext = createContext({});
 
 export function UserContextProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  if (!user) {
+  useEffect(() => {
     axios
       .get("/profile")
       .then(({ data }) => {
@@ -14,11 +15,14 @@ export function UserContextProvider({ children }) {
       })
       .catch((error) => {
         console.error("Error fetching user profile:", error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-  }
-  
+  }, []);
+
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, loading }}>
       {children}
     </UserContext.Provider>
   );
