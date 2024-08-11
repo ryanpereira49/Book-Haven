@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect, useContext, useRef } from "react";
 import { UserContext } from "../context/userContext";
 import axios from "axios";
-import DeleteIcon from "../../public/icons/DeleteIcon";
+
 
 export default function Cart() {
   const { user, loading: userLoading } = useContext(UserContext);
