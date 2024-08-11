@@ -15,6 +15,7 @@ app.use("/", require("./routes/authRoutes"));
 app.use("/book", require("./routes/bookRoutes"));
 app.use("/cart", require("./routes/cartRoutes"));
 app.use("/about", require("./routes/MessageRoutes"))
+app.use("/wishlist", require("./routes/wishlistRoutes"))
 
 const PORT = process.env.port || 8000;
 
