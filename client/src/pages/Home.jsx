@@ -34,19 +34,20 @@ export default function Home() {
 
   useEffect(() => {
     const fetchCart = async () => {
-      if(user){
+      if (user) {
         try {
-          const response = await axios.post("/cart/fetch",{username: user.username});
+          const response = await axios.post("/cart/fetch", { username: user.username });
           setCart(response.data);
-          console.log(cart)
         } catch (error) {
-          console.log(error)
+          console.log(error);
         }
       }
     };
-
+  
     fetchCart();
-  }, [user]); // Add dependency array to ensure useEffect runs only once
+  }, [user]);
+
+  
 
   const isInCart = (isbn) => {
     if(user){
