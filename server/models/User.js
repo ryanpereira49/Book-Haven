@@ -34,6 +34,10 @@ const userSchema = new Schema({
     cart: {
         type: [cartItemSchema],
         default: []
+    },
+    wishlist:{
+        type: [],
+        default: []
     }
 })
 

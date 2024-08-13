@@ -10,6 +10,8 @@ import Footer from "./components/Footer";
 import { UserContextProvider } from "../src/context/userContext";
 import Cart from "./pages/Cart";
 import Contact from './pages/Contact';
+import Wishlist from "./pages/Wishlist";
+import About from "./pages/About"
 
 
 axios.defaults.baseURL = import.meta.env.VITE_APP_DOMAIN
@@ -29,6 +31,8 @@ function App() {
           <Route path='/details' element={<Details />} />
           <Route path='/cart' element={<Cart />}/>
           <Route path='/contact' element={<Contact/>}/>
+          <Route path='/wishlist' element={<Wishlist/>}/>
+          <Route path='/about' element={<About/>}/>
         </Routes>
         <Footer />
       </UserContextProvider>

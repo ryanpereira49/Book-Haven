@@ -30,11 +30,12 @@ export default function Navbar() {
     </div>
     <div className="sm:flex sm:flex-grow sm:justify-end hidden">
       <button className="mx-4 py-1 text-lg" onClick={() => {navigate('/')}}>Home</button>
-      <button className="mx-4 py-1 text-lg" onClick={() => {navigate('/')}}>About</button>
+      <button className="mx-4 py-1 text-lg" onClick={() => {navigate('/about')}}>About</button>
+      <button className="mx-4 py-1 text-lg" onClick={() => {navigate('/contact')}}>Contact</button>
       {
         user ? (
         <>
-        <button className="mx-4 py-1 text-lg" onClick={() => {navigate('/')}}>Hi {user.username}!</button>
+        <button className="mx-4 py-1 text-lg" onClick={() => {navigate('/wishlist')}}>Hi {user.username}!</button>
         <button className="mx-4 py-1 px-4  text-lg bg-black text-white rounded hover:shadow-md" onClick={() => {navigate('/cart')}}>Cart</button>
         <button className="mx-4 py-1 px-3  text-lg border-2 border-black rounded hover:bg-black hover:text-white " onClick={handleLogout}>Log Out</button>
         </>) : (

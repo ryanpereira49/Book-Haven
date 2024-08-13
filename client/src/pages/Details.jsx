@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { UserContext } from "../context/userContext";
+import { useContext } from "react";
 import axios from "axios";
 import BookElement from "../components/BookElement";
+import toast from "react-hot-toast";
 
 export default function Details() {
   const { state } = useLocation();
+
+  const { user, loading: userLoading } = useContext(UserContext);
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [recom, setRecom] = useState(null);
+  const [inCart, setInCart] = useState(false);
+  const [InWishlist, SetInWishlist] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,6 +35,42 @@ export default function Details() {
   }, [state]);
 
   useEffect(() => {
+    const fetchCart = async () => {
+      if (user) {
+        try {
+          const response = await axios.post("/cart/fetch", { username: user.username });
+          const cartData = response.data;
+          setInCart(cartData.some((item) => item.product === state));
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+
+    if (user) {
+      fetchCart();
+    }
+  }, [user, state]);
+
+  useEffect(() => {
+    const fetchWishlist = async () => {
+      if (user) {
+        try {
+          const response = await axios.post("/wishlist/get", { username: user.username });
+          const wishlistData = response.data;
+          SetInWishlist(wishlistData.some((item) => item === state));
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+
+    if (user) {
+      fetchWishlist();
+    }
+  }, [user, state]);
+
+  useEffect(() => {
     const fetchRecommendations = async () => {
       if (data) {
         try {
@@ -41,6 +84,54 @@ export default function Details() {
 
     fetchRecommendations();
   }, [data]);
+
+  async function AddToCart(product){
+    try{
+      const response = await axios.post("/cart/add", { username: user.username, product: product });
+      if(response.data.success){
+        toast.success(response.data.success)
+        setInCart(true)
+      }
+    }catch(error){
+      console.log(error)
+    }
+  }
+
+  async function RemoveFromCart(product){
+    try{
+      const response = await axios.post("/cart/remove", { username: user.username, product: product });
+      if(response.data.success){
+        toast.error(response.data.success)
+        setInCart(false)
+      }
+    }catch(error){
+      console.log(error)
+    }
+  }
+
+  async function AddToWishlist(product){
+    try{
+      const response = await axios.post("/wishlist/add", { username: user.username, product: product });
+      if(response.data.success){
+        toast.success(response.data.success)
+        SetInWishlist(true)
+      }
+    }catch(error){
+      console.log(error)
+    }
+  }
+
+  async function RemoveFromWishlist(product){
+    try{
+      const response = await axios.post("/wishlist/remove_min", { username: user.username, product: product });
+      if(response.data.success){
+        toast.error(response.data.success)
+        SetInWishlist(false)
+      }
+    }catch(error){
+      console.log(error)
+    }
+  }
 
   if (loading) {
     return <div>Loading...</div>;
@@ -70,12 +161,26 @@ export default function Details() {
             <p className="text-xl text-gray-600 pt-3">{data.overview}</p>
           </div>
           <div className="flex flex-row w-full mt-8">
-            <button className="mr-3 w-1/2 border-2 border-black py-2 px-4 rounded-lg hover:shadow-md text-xl">
-              Add to Cart
-            </button>
-            <button className="ml-3 w-1/2 bg-black text-white py-2 px-4 rounded-lg hover:shadow-md text-xl">
-              Buy Now
-            </button>
+            {
+              inCart ? 
+                <button className="mr-3 w-1/2 border-2 border-black py-2 px-4 rounded-lg hover:shadow-md text-xl" onClick={() => RemoveFromCart(data.isbn_13)}>
+                  Remove From Cart
+                </button>
+              :
+                <button className="mr-3 w-1/2 border-2 border-black py-2 px-4 rounded-lg hover:shadow-md text-xl" onClick={() => AddToCart(data.isbn_13)}>
+                  Add to Cart
+                </button>
+            }
+            {
+              InWishlist ?
+              <button className="ml-3 w-1/2 bg-black text-white py-2 px-4 rounded-lg hover:shadow-md text-xl" onClick={() => RemoveFromWishlist(data.isbn_13)}>
+                Remove from Wishlist
+              </button>
+              :
+              <button className="ml-3 w-1/2 bg-black text-white py-2 px-4 rounded-lg hover:shadow-md text-xl" onClick={() => AddToWishlist(data.isbn_13)}>
+                Add to Wishlist
+              </button>
+            }
           </div>
         </div>
       </div>
