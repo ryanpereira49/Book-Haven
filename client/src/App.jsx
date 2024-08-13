@@ -11,10 +11,12 @@ import { UserContextProvider } from "../src/context/userContext";
 import Cart from "./pages/Cart";
 import Contact from './pages/Contact';
 
-axios.defaults.baseURL = "http://localhost:8000";
+
+axios.defaults.baseURL = import.meta.env.VITE_APP_DOMAIN
 axios.defaults.withCredentials = true;
 
 function App() {
+
   return (
     <>
       <UserContextProvider>

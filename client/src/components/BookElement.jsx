@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/userContext";
 import { useContext } from "react";
 import toast from "react-hot-toast";
@@ -39,7 +39,7 @@ export default function BookElement({image, name, author, price, isbn, inCart, o
     <div className='border border-black rounded-lg p-4'>
       <img
         className='w-full h-72 object-cover rounded-lg hover:cursor-pointer'
-        src={"http://" + image}
+        src={import.meta.env.VITE_APP_DOMAIN + image}
         onClick={() => navigate("/details",{state:isbn})}
         alt={name + " cover"}
       />

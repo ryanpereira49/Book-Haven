@@ -1,13 +1,14 @@
 const express = require('express')
 const router = express.Router()
 const cors = require('cors')
+const dotenv = require("dotenv").config();
 const {books,details,recommendation} = require('../controllers/bookControllers')
 
 //Middleware
 router.use(
     cors({
         credentials: true,
-        origin: "http://localhost:5173"
+        origin: process.env.DOMAIN
     })
 )
 

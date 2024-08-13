@@ -56,7 +56,7 @@ export default function Details() {
         <div className="flex-shrink-0">
           <img
             className="w-full h-[500px] object-cover rounded-lg"
-            src={"http://" + data.image_lg}
+            src={import.meta.env.VITE_APP_DOMAIN + data.image_lg}
             alt={data.title + " cover"}
           />
         </div>
