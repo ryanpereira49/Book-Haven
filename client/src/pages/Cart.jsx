@@ -3,7 +3,6 @@ import { useState, useEffect, useContext, useRef } from "react";
 import { UserContext } from "../context/userContext";
 import axios from "axios";
 
-
 export default function Cart() {
   const { user, loading: userLoading } = useContext(UserContext);
   const [data, setData] = useState(null);
@@ -88,7 +87,7 @@ export default function Cart() {
           {data.map((book) => (
             <div key={book.isbn_13} className='grid grid-cols-4 pt-6'>
               <div className='flex flex-row items-center'>
-                <img className='h-auto w-10 rounded-md' src={"http://" + book.image_sm} alt={book.title} />
+                <img className='h-auto w-10 rounded-md' src={import.meta.env.VITE_APP_DOMAIN + book.image_sm} alt={book.title} />
                 <div className='pl-4 w-3/4'>
                   <p className='text-xl truncate '>{book.title}</p>
                   <p className='text-gray-600'>{book.author}</p>

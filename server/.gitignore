@@ -3,8 +3,11 @@ node_modules
 
 hits.json
 output.json
+outputMini.json
 output_old.json
 downloadthumb.py
 testjson.js
 UploadToDatabase.js
 outputUpdater.js
+UploadToDatabaseMini.js
+outputUpdaterMini.js

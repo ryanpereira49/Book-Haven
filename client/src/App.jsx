@@ -13,10 +13,12 @@ import Contact from './pages/Contact';
 import Wishlist from "./pages/Wishlist";
 import About from "./pages/About"
 
-axios.defaults.baseURL = "http://localhost:8000";
+
+axios.defaults.baseURL = import.meta.env.VITE_APP_DOMAIN
 axios.defaults.withCredentials = true;
 
 function App() {
+
   return (
     <>
       <UserContextProvider>

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
-import { useNavigate, Link } from "react-router-dom";
 import BookElement from "../components/BookElement";
 import { UserContext } from "../context/userContext";
 import { useContext } from "react";
-import axios from "axios"; // Make sure axios is imported
+import axios from "axios";
 import Pagination from "../components/Pagination";
 
 export default function Home() {
@@ -30,7 +28,7 @@ export default function Home() {
     };
 
     fetchData();
-  }, []); // Add dependency array to ensure useEffect runs only once
+  }, [data]);
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -47,8 +45,6 @@ export default function Home() {
     fetchCart();
   }, [user]);
 
-  
-
   const isInCart = (isbn) => {
     if(user){
       return cart.some(item => item.product === isbn);
@@ -61,7 +57,6 @@ export default function Home() {
       try {
         const response = await axios.post("/cart/fetch",{username: user.username});
         setCart(response.data);
-        console.log(cart)
       } catch (error) {
         console.log(error)
       }
@@ -69,16 +64,17 @@ export default function Home() {
   };
 
   if (loading) {
-    return <div>Loading...</div>; // Correctly render loading state
+    return <div>Loading...</div>; 
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>; // Correctly render error state
+    return <div>Error: {error.message}</div>; 
   }
 
   const lastPostIndex = currentPage * postPerPage;
   const firstPostIndex = lastPostIndex - postPerPage;
   const currentPosts = data.slice(firstPostIndex, lastPostIndex);
+
 
   return (
     <div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
 
@@ -14,7 +14,7 @@ export default function Navbar() {
     try {
       await axios.get('/logout');
       setUser(null);
-      //navigate('/login');
+      navigate('/login');
     } catch (error) {
       console.error('Logout failed:', error);
     }

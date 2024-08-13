@@ -1,12 +1,10 @@
 import React, {useState} from "react";
 import {toast} from 'react-hot-toast'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from "axios";
 
 
 export default function Contact() {
-
-  const navigate = useNavigate()
 
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
