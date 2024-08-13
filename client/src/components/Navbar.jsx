@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
 
@@ -14,7 +14,7 @@ export default function Navbar() {
     try {
       await axios.get('/logout');
       setUser(null);
-      //navigate('/login');
+      navigate('/login');
     } catch (error) {
       console.error('Logout failed:', error);
     }
@@ -29,7 +29,6 @@ export default function Navbar() {
       </button>
     </div>
     <div className="sm:flex sm:flex-grow sm:justify-end hidden">
-      <button className="mx-4 py-1 text-lg" onClick={() => {navigate('/')}}>Search</button>
       <button className="mx-4 py-1 text-lg" onClick={() => {navigate('/')}}>Home</button>
       <button className="mx-4 py-1 text-lg" onClick={() => {navigate('/')}}>About</button>
       {
