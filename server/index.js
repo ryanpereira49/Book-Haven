@@ -11,11 +11,11 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use('/static',express.static('public'))
 
-app.use("/", require("./routes/authRoutes"));
-app.use("/book", require("./routes/bookRoutes"));
-app.use("/cart", require("./routes/cartRoutes"));
-app.use("/about", require("./routes/MessageRoutes"))
-app.use("/wishlist", require("./routes/wishlistRoutes"))
+app.use("/api", require("./routes/authRoutes"));
+app.use("/api/book", require("./routes/bookRoutes"));
+app.use("/api/cart", require("./routes/cartRoutes"));
+app.use("/api/about", require("./routes/MessageRoutes"))
+app.use("/api/wishlist", require("./routes/wishlistRoutes"))
 
 const PORT = process.env.port || 8000;
 

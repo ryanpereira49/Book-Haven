@@ -12,7 +12,7 @@ export default function Navbar() {
 
   async function handleLogout() {
     try {
-      await axios.get('/logout');
+      await axios.get('/api/logout');
       setUser(null);
       navigate('/login');
     } catch (error) {

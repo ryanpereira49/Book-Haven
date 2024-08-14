@@ -22,7 +22,7 @@ export default function Details() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post("/book/details", { isbn: state });
+        const response = await axios.post("/api/book/details", { isbn: state });
         setData(response.data);
         setLoading(false);
       } catch (error) {
@@ -38,7 +38,7 @@ export default function Details() {
     const fetchCart = async () => {
       if (user) {
         try {
-          const response = await axios.post("/cart/fetch", { username: user.username });
+          const response = await axios.post("/api/cart/fetch", { username: user.username });
           const cartData = response.data;
           setInCart(cartData.some((item) => item.product === state));
         } catch (error) {
@@ -56,7 +56,7 @@ export default function Details() {
     const fetchWishlist = async () => {
       if (user) {
         try {
-          const response = await axios.post("/wishlist/get", { username: user.username });
+          const response = await axios.post("/api/wishlist/get", { username: user.username });
           const wishlistData = response.data;
           SetInWishlist(wishlistData.some((item) => item === state));
         } catch (error) {
@@ -74,7 +74,7 @@ export default function Details() {
     const fetchRecommendations = async () => {
       if (data) {
         try {
-          const response = await axios.post("/book/recommendation", { category: data.category, isbn: data.isbn_13 });
+          const response = await axios.post("/api/book/recommendation", { category: data.category, isbn: data.isbn_13 });
           setRecom(response.data);
         } catch (error) {
           setError(error);
@@ -87,7 +87,7 @@ export default function Details() {
 
   async function AddToCart(product){
     try{
-      const response = await axios.post("/cart/add", { username: user.username, product: product });
+      const response = await axios.post("/api/cart/add", { username: user.username, product: product });
       if(response.data.success){
         toast.success(response.data.success)
         setInCart(true)
@@ -99,7 +99,7 @@ export default function Details() {
 
   async function RemoveFromCart(product){
     try{
-      const response = await axios.post("/cart/remove", { username: user.username, product: product });
+      const response = await axios.post("/api/cart/remove", { username: user.username, product: product });
       if(response.data.success){
         toast.error(response.data.success)
         setInCart(false)
@@ -111,7 +111,7 @@ export default function Details() {
 
   async function AddToWishlist(product){
     try{
-      const response = await axios.post("/wishlist/add", { username: user.username, product: product });
+      const response = await axios.post("/api/wishlist/add", { username: user.username, product: product });
       if(response.data.success){
         toast.success(response.data.success)
         SetInWishlist(true)
@@ -123,7 +123,7 @@ export default function Details() {
 
   async function RemoveFromWishlist(product){
     try{
-      const response = await axios.post("/wishlist/remove_min", { username: user.username, product: product });
+      const response = await axios.post("/api/wishlist/remove_min", { username: user.username, product: product });
       if(response.data.success){
         toast.error(response.data.success)
         SetInWishlist(false)

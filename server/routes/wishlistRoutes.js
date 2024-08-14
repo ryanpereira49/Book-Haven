@@ -7,7 +7,7 @@ const {get, add, remove, remove_min, load} = require('../controllers/wishlistCon
 router.use(
     cors({
         credentials: true,
-        origin: "http://localhost:5173"
+        origin: process.env.DOMAIN
     })
 )
 

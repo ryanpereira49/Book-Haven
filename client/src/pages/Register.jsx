@@ -21,7 +21,7 @@ export default function Register() {
   
     if (password === confirmPassword) {
       try {
-        const { data } = await axios.post('/register', {
+        const { data } = await axios.post('/api/register', {
           username: username,
           email: email,
           password: password,
