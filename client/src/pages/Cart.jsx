@@ -16,7 +16,7 @@ export default function Cart() {
     if (user) {
       const fetchData = async () => {
         try {
-          const response = await axios.post("/cart/load", { username: user.username });
+          const response = await axios.post("/api/cart/load", { username: user.username });
           setData(response.data);
           setLoading(false);
           total.current = 0
@@ -35,7 +35,7 @@ export default function Cart() {
 
   async function handleIncrement(product){
     try{
-      const response = await axios.post("/cart/increment", { username: user.username, product: product });
+      const response = await axios.post("/api/cart/increment", { username: user.username, product: product });
       setData(response.data)
       total.current = 0
     }catch(error){
@@ -45,7 +45,7 @@ export default function Cart() {
 
   async function handleDecrement(product){
     try{
-      const response = await axios.post("/cart/decrement", { username: user.username, product: product });
+      const response = await axios.post("/api/cart/decrement", { username: user.username, product: product });
       setData(response.data)
       total.current = 0
     }catch(error){

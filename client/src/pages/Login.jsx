@@ -19,7 +19,7 @@ export default function Login() {
   async function handleSubmit(e){
     e.preventDefault()
     try {
-      const { data } = await axios.post('/login', {
+      const { data } = await axios.post('/api/login', {
         username: username,
         password: password
       });

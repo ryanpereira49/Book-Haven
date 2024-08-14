@@ -18,7 +18,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/book/books");
+        const response = await axios.get("/api/book/books");
         setData(response.data);
         setLoading(false);
       } catch (error) {
@@ -34,7 +34,7 @@ export default function Home() {
     const fetchCart = async () => {
       if (user) {
         try {
-          const response = await axios.post("/cart/fetch", { username: user.username });
+          const response = await axios.post("/api/cart/fetch", { username: user.username });
           setCart(response.data);
         } catch (error) {
           console.log(error);
@@ -55,7 +55,7 @@ export default function Home() {
   const handleAddToCart = async () => {
     if(user){
       try {
-        const response = await axios.post("/cart/fetch",{username: user.username});
+        const response = await axios.post("/api/cart/fetch",{username: user.username});
         setCart(response.data);
       } catch (error) {
         console.log(error)

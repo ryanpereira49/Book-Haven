@@ -13,7 +13,7 @@ export default function Contact() {
   async function handleSubmit(e){
     e.preventDefault()
     try {
-      const { data } = await axios.post('/about/contact', {
+      const { data } = await axios.post('/api/about/contact', {
         name: username,
         email: email,
         message: message

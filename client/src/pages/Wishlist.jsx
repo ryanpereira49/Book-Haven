@@ -18,7 +18,7 @@ export default function Wishlist() {
     if (user) {
       const fetchData = async () => {
         try {
-          const response = await axios.post("/wishlist/load", { username: user.username });
+          const response = await axios.post("/api/wishlist/load", { username: user.username });
           setData(response.data);
           setLoading(false);
         } catch (error) {
@@ -36,7 +36,7 @@ export default function Wishlist() {
 
   async function handleRemove(product){
     try{
-      const response = await axios.post("/wishlist/remove", { username: user.username, product: product });
+      const response = await axios.post("/api/wishlist/remove", { username: user.username, product: product });
       setData(response.data)
       toast.error("Removed from wishlist")
     }catch(error){
