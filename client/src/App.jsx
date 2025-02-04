@@ -14,7 +14,7 @@ import Wishlist from "./pages/Wishlist";
 import About from "./pages/About"
 
 
-axios.defaults.baseURL = import.meta.env.VITE_APP_DOMAIN
+
 axios.defaults.withCredentials = true;
 
 function App() {
