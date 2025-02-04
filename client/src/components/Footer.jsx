@@ -13,7 +13,7 @@ export default function Footer() {
       </button>
     </div>
     <div className="sm:flex sm:flex-grow sm:justify-end hidden">
-      <button className="mx-4 py-1 text-lg underline" onClick={() => {navigate('/')}}>About</button>
+      <button className="mx-4 py-1 text-lg underline" onClick={() => {navigate('/about')}}>About</button>
       <button className="mx-4 py-1 text-lg underline" onClick={() => {navigate('/contact')}}>Contact</button>
       <button className="mx-4 py-1 text-lg underline" onClick={() => {navigate('/')}}>Ryan Pereira</button>
     </div>
