@@ -77,17 +77,47 @@ export default function Home() {
 
 
   return (
-    <div>
-      <div className='p-28 mx-4 mt-20'>
-        <span className='text-[70px] font-bold text-left'>Where every book is a new adventure</span>
-        <br />
-        <span className='text-[40px] font-semibold text-gray-600'>Discover your next great read with us!</span>
-        <br />
-        <button className='bg-black rounded-md text-white px-4 py-3 text-[20px] font-semibold mt-8'>
-          Start reading
+    // <div>
+    //   <div className='p-28 mx-4 mt-20'>
+    //     <span className='text-[70px] font-bold text-left'>Where every book is a new adventure</span>
+    //     <br />
+    //     <span className='text-[40px] font-semibold text-gray-600'>Discover your next great read with us!</span>
+    //     <br />
+    //     <button className='bg-black rounded-md text-white px-4 py-3 text-[20px] font-semibold mt-8'>
+    //       Start reading
+    //     </button>
+    //   </div>
+    //   <div className='px-24 py-3'>
+    //     <div className='grid grid-cols-5 gap-7 content-around'>
+    //       {currentPosts.map((book) => (
+    //         <BookElement
+    //           key={book.isbn_13}
+    //           image={book.image_sm}
+    //           name={book.title}
+    //           author={book.author}
+    //           price={book.price}
+    //           isbn={book.isbn_13}
+    //           inCart={user ? isInCart(book.isbn_13): false}
+    //           onAddToCart={handleAddToCart}
+    //         />
+    //       ))}
+    //     </div>
+    //     <div className="pt-8 mb-8 flex justify-center">
+    //       <Pagination totalPosts={data.length} postPerPage={postPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage} />
+    //     </div>
+    //   </div>
+    // </div>
+    <div className="flex flex-col items-center px-6 md:px-12 overflow-hidden">
+      <div id='hero' className='flex flex-col justify-center items-baseline h-svh gap-y-3 md:gap-y-6 transform -translate-y-20'>
+        <span className='text-[30px] md:text-[70px] text-pretty font-bold'>Where every book is a new adventure</span>
+        <span className='text-[17px] md:text-[40px] text-pretty font-semibold text-gray-600'>
+          Discover your next great read with us!
+        </span>
+        <button className='bg-black rounded-md text-white px-4 py-3 text-lg md:text-[20px] font-semibold w-1/2 md:w-auto'>
+          Start Reading
         </button>
       </div>
-      <div className='px-24 py-3'>
+      <div>
         <div className='grid grid-cols-5 gap-7 content-around'>
           {currentPosts.map((book) => (
             <BookElement
@@ -97,13 +127,18 @@ export default function Home() {
               author={book.author}
               price={book.price}
               isbn={book.isbn_13}
-              inCart={user ? isInCart(book.isbn_13): false}
+              inCart={user ? isInCart(book.isbn_13) : false}
               onAddToCart={handleAddToCart}
             />
           ))}
         </div>
-        <div className="pt-8 mb-8 flex justify-center">
-          <Pagination totalPosts={data.length} postPerPage={postPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage} />
+        <div className='pt-8 mb-8 flex justify-center'>
+          <Pagination
+            totalPosts={data.length}
+            postPerPage={postPerPage}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+          />
         </div>
       </div>
     </div>
