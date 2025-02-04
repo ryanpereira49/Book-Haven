@@ -6,6 +6,7 @@ import tailwind from 'tailwindcss'
 export default defineConfig({
   plugins: [react(), tailwind()],
   build: {
-    minify: 'esbuild'
+    minify: 'esbuild',
+    emptyOutDir: false,
   }
 })
