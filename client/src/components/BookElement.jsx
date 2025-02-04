@@ -13,7 +13,7 @@ export default function BookElement({image, name, author, price, isbn, inCart, o
 
   async function AddToCart(product){
     try{
-      const response = await axios.post("/cart/add", { username: user.username, product: product });
+      const response = await axios.post("api/cart/add", { username: user.username, product: product });
       if(response.data.success){
         toast.success(response.data.success)
         onAddToCart()
@@ -25,7 +25,7 @@ export default function BookElement({image, name, author, price, isbn, inCart, o
 
   async function RemoveFromCart(product){
     try{
-      const response = await axios.post("/cart/remove", { username: user.username, product: product });
+      const response = await axios.post("api/cart/remove", { username: user.username, product: product });
       if(response.data.success){
         toast.error(response.data.success)
         onAddToCart()
@@ -54,7 +54,10 @@ export default function BookElement({image, name, author, price, isbn, inCart, o
         {
           inCart ? 
           <button className='mt-4 w-full border-2 border-black py-2 px-4 rounded-lg hover:shadow-md' onClick={() => RemoveFromCart(isbn)}>In Cart</button>:
-          <button className='mt-4 w-full bg-black text-white py-2 px-4 rounded-lg hover:shadow-md' onClick={() => AddToCart(isbn)}>Add to Cart</button>
+          user ? 
+          <button className='mt-4 w-full bg-black text-white py-2 px-4 rounded-lg hover:shadow-md' onClick={() => AddToCart(isbn)}>Add to Cart</button>:
+          <button className='mt-4 w-full bg-black text-white py-2 px-4 rounded-lg hover:shadow-md' onClick={() => navigate("/details",{state:isbn})}>Read More</button>
+          
         }
         
       </div>
