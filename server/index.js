@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv").config();
 const { mongoose } = require("mongoose");
 const cookieParser = require("cookie-parser");
+const session = require('express-session');
 
 const app = express();
 
@@ -9,7 +10,13 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
-app.use('/static',express.static('public'))
+//app.use(express.static('public'));
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+}));
 
 app.use("/api", require("./routes/authRoutes"));
 app.use("/api/book", require("./routes/bookRoutes"));

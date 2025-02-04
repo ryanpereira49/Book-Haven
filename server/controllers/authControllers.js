@@ -6,6 +6,7 @@ const {
 const { hashPassword, comparePasswords } = require("../helper/hashing");
 const User = require("../models/User");
 const jwt = require('jsonwebtoken')
+const session = require('express-session');
 
 /*
     OUT - "JSON/String"
@@ -46,7 +47,8 @@ const login = async (req, res) => {
         {},
         (err, token) => {
           if (err) throw err;
-          res.cookie("token", token).json({success: user});
+	    req.session.token = token;
+          res.json({success: user});
         }
       );
     }
@@ -93,7 +95,8 @@ const register = async (req, res) => {
           {},
           (err, token) => {
             if (err) throw err;
-            res.cookie("token", token).json({success: user});
+            req.session.token = token;            
+	      res.json({success: user});
           }
         );
       }
@@ -112,11 +115,13 @@ const register = async (req, res) => {
 };
 
 const logout = async(req,res) => {
-  res.status(202).clearCookie('token').send('cookie cleared')
-}
+  req.session.destroy((err) => {
+    if (err) throw err;
+    res.send('Logged out');
+  });}
 
 const getProfile = (req,res) => {
-  const {token} = req.cookies
+  const {token} = req.session
   if(token){
       jwt.verify(token,process.env.JWT_SECRET,{}, (err,user) => {
           if(err) throw(err)
