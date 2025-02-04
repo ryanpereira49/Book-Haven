@@ -12,7 +12,7 @@ export default function Home() {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostPerPage] = useState(15);
-
+  
   const { user, loading: userLoading } = useContext(UserContext);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function Home() {
     };
 
     fetchData();
-  }, [data]);
+  }, [cart]);
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -46,7 +46,7 @@ export default function Home() {
   }, [user]);
 
   const isInCart = (isbn) => {
-    if(user){
+    if (user && cart) { // Add a null check for cart
       return cart.some(item => item.product === isbn);
     }
     
