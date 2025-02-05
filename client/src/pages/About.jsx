@@ -2,7 +2,8 @@ import React from 'react'
 
 export default function About() {
   return (
-    <div className='px-64 pt-16 pb-4'>
+    <div className='flex justify-center px-4 py-8'>
+    <div className='flex flex-col text-pretty md:max-w-5xl'>
       <p className='text-xl font-bold'>Welcome to Book Haven</p>
       <p className='text-lg pt-2'>
         At Book Haven, we're passionate about connecting readers with the books they love. Our online bookstore is
@@ -50,6 +51,7 @@ export default function About() {
         don't hesitate to contact us.
       </p>
       <p className='text-xl font-bold pt-4'>Happy Reading!</p>
+    </div>
     </div>
   );
 }
