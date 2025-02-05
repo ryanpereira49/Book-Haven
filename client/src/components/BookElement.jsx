@@ -36,31 +36,27 @@ export default function BookElement({image, name, author, price, isbn, inCart, o
   }
  
   return (
-    <div className='border border-black rounded-lg p-4'>
+    <div className="flex flex-col border border-black rounded-lg p-3 gap-y-1">
       <img
-        className='w-full h-72 object-cover rounded-lg hover:cursor-pointer'
+        className='w-full h-3/4 object-cover rounded-lg hover:cursor-pointer'
         src={import.meta.env.VITE_APP_DOMAIN + image}
         onClick={() => navigate("/details",{state:isbn})}
         alt={name + " cover"}
       />
-      <div className='pt-3'>
-        <h2
-          className='text-lg font-semibold overflow-hidden text-nowrap hover:cursor-pointer'
-          onClick={() => navigate("/details",{state: isbn})}>
-          {name}
-        </h2>
-        <p className='text-gray-600'>{author}</p>
-        <p className='text-gray-800 font-semibold'>${price-Math.floor(price) !== 0 ? price: price+".00" }</p>
-        {
-          inCart ? 
-          <button className='mt-4 w-full border-2 border-black py-2 px-4 rounded-lg hover:shadow-md' onClick={() => RemoveFromCart(isbn)}>In Cart</button>:
-          user ? 
-          <button className='mt-4 w-full bg-black text-white py-2 px-4 rounded-lg hover:shadow-md' onClick={() => AddToCart(isbn)}>Add to Cart</button>:
-          <button className='mt-4 w-full bg-black text-white py-2 px-4 rounded-lg hover:shadow-md' onClick={() => navigate("/details",{state:isbn})}>Read More</button>
-          
-        }
-        
-      </div>
+      <h2
+        className='text-base md:text-base overflow-hidden text-nowrap font-semibold hover:cursor-pointer'
+        onClick={() => navigate("/details",{state: isbn})}>
+        {name}
+      </h2>
+      <p className='text-sm md:text-base font-light overflow-hidden text-nowrap'>{author}</p>
+      <p className='text-sm md:text-base font-semibold'>${price-Math.floor(price) !== 0 ? price: price+".00" }</p>
+      {  
+        inCart ? 
+        <button className='w-full border-2 border-black text-sm md:text-base py-2 px-4 rounded-lg hover:shadow-md' onClick={() => RemoveFromCart(isbn)}>In Cart</button>:
+        user ? 
+        <button className='w-full bg-black text-white text-sm md:text-base py-2 px-4 rounded-lg hover:shadow-md' onClick={() => AddToCart(isbn)}>Add to Cart</button>:
+        <button className='w-full bg-black text-white text-sm md:text-base py-2 px-4 rounded-lg hover:shadow-md' onClick={() => navigate("/details",{state:isbn})}>Read More</button>
+      }
     </div>
   );
 }

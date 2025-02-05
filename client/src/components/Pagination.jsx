@@ -17,7 +17,7 @@ export default function Pagination({totalPosts,postPerPage, setCurrentPage, curr
                 className={
                   page == currentPage
                     ? "border-2 border-black rounded-full px-3 py-1 mx-3 bg-black text-white"
-                    : "border-2 border-black rounded-full px-3 py-1 mx-3"
+                    : "border-2 border-black rounded-full px-3 py-1 mx-3 my-1"
                 }
                 key={index}
                 onClick={() => setCurrentPage(page)}>
