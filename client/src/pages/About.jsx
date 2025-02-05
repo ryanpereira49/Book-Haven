@@ -43,7 +43,7 @@ export default function About() {
       <ul className='pt-2'>
         <li className='text-lg pt-1'>{import.meta.env.VITE_APP_NAME}</li>
         <li className='text-lg pt-1'>Email: {import.meta.env.VITE_APP_EMAIL}</li>
-        <li className='text-lg pt-1'>LinkedIn: {import.meta.env.VITE_APP_LINKEDIN}</li>
+        <li className='text-lg pt-1'>LinkedIn: <a href={import.meta.env.VITE_APP_LINKEDIN} className='underline' target='_blank'>ryan-pereira49</a></li>
       </ul>
       <p className='text-xl font-bold pt-4'>Get in Touch</p>
       <p className='text-lg pt-2'>
