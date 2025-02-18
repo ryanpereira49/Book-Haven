@@ -36,30 +36,53 @@ export default function Login() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
-    <div className="w-screen mt-32 flex items-center justify-center">
-      <div className="flex flex-col justify-center items-center border-2 p-4 border-black rounded-md">
-        <img className="mb-6 w-60" src="/Logo.png" alt="Website Logo"/>
-        <div>
-          <h2 className="mb-8 text-3xl">Log in to your account</h2>
+    // <div className="flex flex-col min-h-screen">
+    // <div className="w-screen mt-32 flex items-center justify-center">
+    //   <div className="flex flex-col justify-center items-center border-2 p-4 border-black rounded-md">
+    //     <img className="mb-6 w-60" src="/Logo.png" alt="Website Logo"/>
+    //     <div>
+    //       <h2 className="mb-8 text-3xl">Log in to your account</h2>
+    //     </div>
+    //     <input 
+    //     className="mb-4 p-2 border-2 w-full border-black rounded-md focus:border-none" 
+    //     placeholder="Enter your username"
+    //     value={username}
+    //     onChange={(e) => {setUsername(e.target.value)}} 
+    //     />
+    //     <input 
+    //     className="mb-4 p-2 w-full border-2 border-black rounded-md focus:border-none" 
+    //     placeholder="Enter your password"
+    //     type="password"
+    //     value={password}
+    //     onChange={(e) => {setPassword(e.target.value)}} 
+    //     />
+    //     <button className="mb-4 p-2 w-full bg-black text-white rounded-md" onClick={handleSubmit}>Login</button>
+    //     <h5>Don't have an account ?<button className="underline" onClick={() => {navigate('/register')}}> Sign Up?</button></h5>
+    //   </div>
+    // </div>
+    // </div>
+    <div className="flex h-svh justify-center items-center">
+      <div id="main-container" className="flex flex-col border-2 border-black rounded-lg p-4 gap-y-6 items-center">
+        <div id="image-container">
+        <img className="w-60" src="/Logo.png" alt="Website Logo"/>
         </div>
+        <h2 className="text-2xl md:text-3xl">Login to your account</h2>
         <input 
-        className="mb-4 p-2 border-2 w-full border-black rounded-md focus:border-none" 
+        className="p-2 border-2 w-full border-black rounded-md focus:border-none" 
         placeholder="Enter your username"
         value={username}
         onChange={(e) => {setUsername(e.target.value)}} 
         />
         <input 
-        className="mb-4 p-2 w-full border-2 border-black rounded-md focus:border-none" 
+        className="p-2 w-full border-2 border-black rounded-md focus:border-none" 
         placeholder="Enter your password"
         type="password"
         value={password}
         onChange={(e) => {setPassword(e.target.value)}} 
         />
-        <button className="mb-4 p-2 w-full bg-black text-white rounded-md" onClick={handleSubmit}>Login</button>
-        <h5>Don't have an account ?<button className="underline" onClick={() => {navigate('/register')}}> Sign Up?</button></h5>
+        <button className="p-2 w-full bg-black text-white rounded-md" onClick={handleSubmit}>Login</button>
+        <h5>Don't have an account?<button className="underline" onClick={() => {navigate('/register')}}>Sign Up</button></h5>
       </div>
-    </div>
     </div>
   );
 }
