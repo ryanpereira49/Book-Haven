@@ -18,7 +18,7 @@ export default function Details() {
   const [recom, setRecom] = useState(null);
   const [inCart, setInCart] = useState(false);
   const [InWishlist, SetInWishlist] = useState(false);
-  const [overflow, setOverflow] = useState("hidden");
+  const [overflow, setOverflow] = useState("overflow-hidden");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -138,11 +138,7 @@ export default function Details() {
   }
 
   function handleOverflow() {
-    if (overflow === "hidden") {
-      setOverflow("y-scroll");
-    } else {
-      setOverflow("hidden");
-    }
+    setOverflow((overflow) => (overflow === 'overflow-hidden'? 'overflow-auto': 'overflow-hidden'))
   }
 
   if (loading) {
@@ -180,7 +176,7 @@ export default function Details() {
             ) : (
               <button
                 className='border-2 border-black py-2 px-4 rounded-lg hover:shadow-md'
-                onClick={() => user? AddToCart(data.isbn_13): toast.error("Please login in to use cart","warning")}>
+                onClick={() => user? AddToCart(data.isbn_13): toast.error("Please login in to use cart")}>
                 Add to Cart
               </button>
             )}
@@ -199,7 +195,7 @@ export default function Details() {
             )}
           </div>
           <div className='p-2 md:p-3 mt-2 md:mt-4 border-2 border-black rounded-lg'>
-            <p className={`h-40 overflow-${overflow}`} onClick={() => handleOverflow()}>
+            <p className={`h-40 ${overflow}`} onClick={() => handleOverflow()}>
               {data.overview}
             </p>
           </div>
