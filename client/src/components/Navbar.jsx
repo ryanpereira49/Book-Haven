@@ -75,6 +75,7 @@ export default function Navbar() {
         <button
           onClick={() => {
             navigate("/");
+            handleNav();
           }}>
           <img className='max-w-60 h-auto invert p-4 mt-3' src='/Logo.png' alt='Website Logo' />
         </button>
@@ -85,7 +86,7 @@ export default function Navbar() {
         <hr className='w-[60%]'/>
         {user ? (
           <>
-            <button className='mx-4 py-1 text-lg text-white' onClick={() => {navigate("/wishlist");}}>Hi {user.username}!</button>
+            <button className='mx-4 py-1 text-lg text-white' onClick={() => {navigate("/wishlist");handleNav()}}>Hi {user.username}!</button>
             <button className='mx-4 py-1 px-3  text-lg border-2 border-white text-white rounded' onClick={() => {navigate("/cart");handleNav()}}>Cart</button>
             <button className='mx-4 py-1 px-3  text-lg bg-white text-black rounded hover:shadow-md' onClick={() => {handleLogout();handleNav()}}>Log Out</button>
           </>
