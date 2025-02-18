@@ -36,7 +36,7 @@ const recommendation = async(req,res) => {
   try{
     const book = await BookMini.aggregate([
       { $match: { category: category, isbn_13: { $ne: isbn } } }, // Match books with the same category but different ISBN
-      { $sample: { size: 5 } } // Randomly select 5 books
+      { $sample: { size: 6 } } // Randomly select n books
     ]);
     res.json(book)
   }catch(error){
