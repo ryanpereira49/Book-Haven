@@ -32,34 +32,33 @@ export default function Contact() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
-    <div className="w-screen mt-32 flex items-center justify-center">
-      <div className="flex flex-col justify-center items-center border-2 p-4 border-black rounded-md">
-        <img className="mb-6 w-60" src="/Logo.png" alt="Website Logo"/>
-        <div>
-          <h2 className="mb-8 text-3xl">Contact Us</h2>
+    <div className="flex h-svh justify-center items-center">
+      <div id="main-container" className="flex flex-col max-w-2xl border-2 border-black rounded-lg px-4 py-6 items-center gap-y-4">
+        <div id="image-container" className="w-60 h-auto">
+        <img className="" src="/Logo.png" alt="Website Logo"/>
         </div>
+        <h2 className="text-2xl">Contact Us</h2>
         <input 
-        className="mb-4 p-2 border-2 w-full border-black rounded-md focus:border-transparent" 
+        className="p-2 border-2 w-full border-black rounded-md focus:border-transparent" 
         placeholder="Name"
         value={username}
         onChange={(e) => {setUsername(e.target.value)}} 
         />
         <input 
-        className="mb-4 p-2 w-full border-2 border-black rounded-md focus:border-transparent" 
+        className="p-2 w-full border-2 border-black rounded-md focus:border-transparent" 
         placeholder="Email"
         value={email}
         onChange={(e) => {setEmail(e.target.value)}} 
         />
         <textarea 
-        className="mb-4 p-2 w-full border-2 border-black rounded-md focus:border-transparent resize-y" 
+        className="p-2 w-full border-2 border-black rounded-md focus:border-transparent resize-y" 
         placeholder="Message"
         value={message}
         onChange={(e) => {setMessage(e.target.value)}} 
         />
-        <button className="mb-4 p-2 w-full bg-black text-white rounded-md" onClick={handleSubmit}>Submit</button>
+        <button className="p-2 w-full bg-black text-white rounded-md" onClick={handleSubmit}>Submit</button>
       </div>
     </div>
-    </div>
-  );
+
+);
 }
