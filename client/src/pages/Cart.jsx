@@ -8,7 +8,7 @@ export default function Cart() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  let total = useRef(0)
+  let total = useRef(0);
 
   useEffect(() => {
     if (userLoading) return;
@@ -19,7 +19,7 @@ export default function Cart() {
           const response = await axios.post("/api/cart/load", { username: user.username });
           setData(response.data);
           setLoading(false);
-          total.current = 0
+          total.current = 0;
         } catch (error) {
           setError(error);
           setLoading(false);
@@ -33,28 +33,28 @@ export default function Cart() {
     }
   }, [user, userLoading]);
 
-  async function handleIncrement(product){
-    try{
+  async function handleIncrement(product) {
+    try {
       const response = await axios.post("/api/cart/increment", { username: user.username, product: product });
-      setData(response.data)
-      total.current = 0
-    }catch(error){
-      console.log(error)
+      setData(response.data);
+      total.current = 0;
+    } catch (error) {
+      console.log(error);
     }
   }
 
-  async function handleDecrement(product){
-    try{
+  async function handleDecrement(product) {
+    try {
       const response = await axios.post("/api/cart/decrement", { username: user.username, product: product });
-      setData(response.data)
-      total.current = 0
-    }catch(error){
-      console.log(error)
+      setData(response.data);
+      total.current = 0;
+    } catch (error) {
+      console.log(error);
     }
   }
 
-  function calculateTotal(price,quantity) {
-    total.current = total.current + (price * quantity)
+  function calculateTotal(price, quantity) {
+    total.current = total.current + price * quantity;
   }
 
   if (loading || userLoading) {
@@ -65,90 +65,167 @@ export default function Cart() {
     return <div>Error: {error.message}</div>;
   }
 
-  if(data == null){
-    return(
-      <div>
-
-      </div>
-    )
+  if (data == null) {
+    return <div></div>;
   }
 
   return (
-    <div className='px-16 pt-4 h-svh'>
-      <p className='text-5xl font-bold'>Cart</p>
-      <div className='flex flex-row pt-4'>
-        <div className='flex flex-col flex-grow'>
-          <div className='grid grid-cols-4'>
-            <p className='text-2xl font-semibold'>Book</p>
-            <p className='text-2xl font-semibold'>Price</p>
-            <p className='text-2xl font-semibold'>Quantity</p>
-            <p className='text-2xl font-semibold'>Total</p>
+    <div id='main-wrapper' className='flex flex-col md:items-center min-h-screen p-6 md:p-0'>
+      <h1 className='text-2xl md:text-4xl text-center pt-4'>Cart</h1>
+      <div id='desktop-wrapper' className='hidden md:flex px-6 pt-6 gap-x-6 w-[80%]'>
+        <div id='book-list'>
+          <div className='grid grid-cols-4 border-black border-b-2 gap-6'>
+            <p>Book</p>
+            <p>Price</p>
+            <p>Quantity</p>
+            <p>Total</p>
           </div>
           {data.map((book) => (
-            <div key={book.isbn_13} className='grid grid-cols-4 pt-6'>
-              <div className='flex flex-row items-center'>
-                <img className='h-auto w-10 rounded-md' src={import.meta.env.VITE_APP_DOMAIN + book.image_sm} alt={book.title} />
-                <div className='pl-4 w-3/4'>
-                  <p className='text-xl truncate '>{book.title}</p>
-                  <p className='text-gray-600'>{book.author}</p>
+            <div key={book.isbn_13} className='grid grid-cols-4 mt-3 gap-6'>
+              <div className='flex gap-x-2 overflow-hidden'>
+                <img
+                  className='h-16 rounded-md'
+                  src={import.meta.env.VITE_APP_DOMAIN + book.image_sm}
+                  alt={book.title}
+                />
+                <div>
+                  <p className='truncate'>{book.title}</p>
+                  <p className=''>{book.author}</p>
                 </div>
               </div>
               <p className='flex flex-row items-center'>${book.price}</p>
-              <div className='flex flex-row items-center space-x-3 px-3'>
-                <button 
-                className='p-3 border-2 border-black rounded-lg h-1/2 flex items-center hover:bg-black hover:text-white'
-                onClick={() => handleIncrement(book.isbn_13)}
-                >
+              <div id='quantity-buttons-mobile' className='flex items-center gap-x-3'>
+                <button
+                  className='border-2 border-black rounded-full px-2 flex items-center justify-center text-xl hover:text-white hover:bg-black'
+                  onClick={() => handleIncrement(book.isbn_13)}>
                   +
                 </button>
-                <p>{book.quantity}</p>
-                {book.quantity == 1 ? (
-                  <button 
-                  className='p-3 border-2 border-black rounded-lg h-1/2  flex items-center hover:bg-black hover:text-white'
-                  onClick={() => handleDecrement(book.isbn_13)}
-                  >
+                <p className='text-xl'>{book.quantity}</p>
+                {book.quantity === 1 ? (
+                  <button
+                    className='border-2 border-black rounded-full px-2 flex items-center justify-center text-xl hover:text-white hover:bg-black'
+                    onClick={() => handleDecrement(book.isbn_13)}>
                     x
                   </button>
                 ) : (
-                  <button 
-                  className='p-3 border-2 border-black rounded-lg h-1/2  flex items-center hover:bg-black hover:text-white'
-                  onClick={() => handleDecrement(book.isbn_13)}
-                  >
+                  <button
+                    className='border-2 border-black rounded-full px-2 flex items-center justify-center text-xl hover:text-white hover:bg-black'
+                    onClick={() => handleDecrement(book.isbn_13)}>
                     -
                   </button>
                 )}
+                {calculateTotal(book.price, book.quantity)}
               </div>
               <p className='flex flex-row items-center'>${(book.price * book.quantity).toFixed(2)}</p>
-              {calculateTotal(book.price,book.quantity)}
             </div>
           ))}
         </div>
-        <div className="shrink-0">
-        <div className='flex flex-col shrink-0 border-2 border-black rounded-md p-4'>
-          <input
-            className='mb-4 p-2 border-2 w-full border-black rounded-md focus:border-transparent'
-            placeholder='Promo Code?'
-          />
-          <div className='flex flex-col '>
-            <div className='flex flex-row justify-between pt-2'>
-              <p className='font-semibold text-xl'>Total:</p>
-              <p className='font-semibold text-xl'>${total.current.toFixed(2)}</p>
+        <div id='checkout-section' className='pt-6'>
+          <div id='content-wrapper' className='flex flex-col  border-2 border-black rounded-md gap-y-3 p-3'>
+            <input
+              className='p-2 border-2 border-black rounded-md focus:border-transparent'
+              placeholder='Promo Code?'
+            />
+            <div className='flex justify-between'>
+              <p className='font-semibold text-lg'>Total:</p>
+              <p className=''>${total.current.toFixed(2)}</p>
             </div>
-            <div className='flex flex-row justify-between pt-2'>
-              <p className='font-semibold text-xl'>Tax (13%):</p>
-              <p className='font-semibold text-xl'>${(total.current * 0.13).toFixed(2)}</p>
+            <div className='flex justify-between'>
+              <p className='font-semibold text-lg'>Tax (13%):</p>
+              <p className=''>${(total.current * 0.13).toFixed(2)}</p>
             </div>
-            <div className='flex flex-row justify-between pt-2'>
-              <p className='font-semibold text-xl'>Shipping:</p>
-              <p className='font-semibold text-xl'>${((total.current * 0.05)).toFixed(2)}</p>
+            <div className='flex justify-between'>
+              <p className='font-semibold text-lg'>Shipping:</p>
+              <p className=''>${(total.current * 0.05).toFixed(2)}</p>
             </div>
-            <div className='flex flex-row justify-between border-t-2 border-black pt-3 mt-2'>
-              <p className='font-semibold text-xl'>Sub Total:</p>
-              <p className='font-semibold text-xl'>${(total.current + (total.current * 0.13)+(total.current * 0.05)).toFixed(2)}</p>
+            <div className='flex justify-between'>
+              <p className='font-semibold text-lg'>Sub Total:</p>
+              <p className=''>${(total.current + total.current * 0.13 + total.current * 0.05).toFixed(2)}</p>
+            </div>
+            <button className='p-2 bg-black text-white rounded-md font-semibold'>Checkout</button>
+          </div>
+        </div>
+      </div>
+      <div id='mobile-wrapper' className="md:hidden">
+        <div className='book-list-mobile'>
+          <div id='book-list-mobile'>
+            <div className='flex justify-between font-bold border-b-2 border-black'>
+              <div className='flex gap-x-6'>
+                <p>Book</p>
+                <p>Title</p>
+              </div>
+              <p>Total</p>
+            </div>
+            <div>
+              {data.map((book) => (
+                <div id='book-info' className='flex flex-col'>
+                  <div key={book.isbn_13} className='flex items-center justify-between pt-4 gap-x-4'>
+                    <div className='flex gap-x-3 items-center'>
+                      <img
+                        className='h-16 rounded-md'
+                        src={import.meta.env.VITE_APP_DOMAIN + book.image_sm}
+                        alt={book.title}
+                      />
+                      <div className='flex flex-col'>
+                        <p className='text-sm'>{book.title}</p>
+                        <p className='text-gray-600 text-xs'>{book.author}</p>
+                      </div>
+                    </div>
+                    <div className='flex justify-center items-center'>
+                      <p className='flex flex-row items-center'>${(book.price * book.quantity).toFixed(2)}</p>
+                    </div>
+                  </div>
+                  <div id='quantity-buttons' className='flex pt-2 justify-end items-center gap-x-3'>
+                    <button
+                      className='border-2 border-black rounded-full px-2 flex items-center justify-center text-xl hover:text-white hover:bg-black'
+                      onClick={() => handleIncrement(book.isbn_13)}>
+                      +
+                    </button>
+                    <p className='text-xl'>{book.quantity}</p>
+                    {book.quantity === 1 ? (
+                      <button
+                        className='border-2 border-black rounded-full px-2 flex items-center justify-center text-xl hover:text-white hover:bg-black'
+                        onClick={() => handleDecrement(book.isbn_13)}>
+                        x
+                      </button>
+                    ) : (
+                      <button
+                        className='border-2 border-black rounded-full px-2 flex items-center justify-center text-xl hover:text-white hover:bg-black'
+                        onClick={() => handleDecrement(book.isbn_13)}>
+                        -
+                      </button>
+                    )}
+                    {calculateTotal(book.price, book.quantity)}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-          <button className='mt-4 p-2 w-full bg-black text-white rounded-md text-xl'>Checkout</button>
-        </div>
+          <div id='checkout-section-mobile' className='pt-6'>
+            <div id='content-wrapper' className='flex flex-col  border-2 border-black rounded-md gap-y-3 p-3'>
+              <input
+                className='p-2 border-2 border-black rounded-md focus:border-transparent'
+                placeholder='Promo Code?'
+              />
+              <div className='flex justify-between'>
+                <p className='font-semibold text-lg'>Total:</p>
+                <p className=''>${total.current.toFixed(2)}</p>
+              </div>
+              <div className='flex justify-between'>
+                <p className='font-semibold text-lg'>Tax (13%):</p>
+                <p className=''>${(total.current * 0.13).toFixed(2)}</p>
+              </div>
+              <div className='flex justify-between'>
+                <p className='font-semibold text-lg'>Shipping:</p>
+                <p className=''>${(total.current * 0.05).toFixed(2)}</p>
+              </div>
+              <div className='flex justify-between'>
+                <p className='font-semibold text-lg'>Sub Total:</p>
+                <p className=''>${(total.current + total.current * 0.13 + total.current * 0.05).toFixed(2)}</p>
+              </div>
+              <button className='p-2 bg-black text-white rounded-md font-semibold'>Checkout</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
